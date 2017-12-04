@@ -50,6 +50,12 @@ services:
       - "${MYSQL_PORT_EXPOSE}:3306"
     networks:
       - backend
+  composer:
+    container_name: "${APP_NAME}_composer"
+    build:
+      context: ./docker/composer
+    volumes:
+      - ./src:/app
 
 networks:
   frontend:
