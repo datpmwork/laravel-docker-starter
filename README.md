@@ -1,5 +1,7 @@
 # Install Docker
-https://www.docker.com/docker-windows
+(For Mac): https://www.docker.com/docker-windows
+
+(For Windows): https://www.docker.com/docker-mac
 
 # Start Docker via Git Bash
 
