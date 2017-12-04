@@ -1,0 +1,10 @@
+version: "2"
+options:
+  verbose: true
+syncs:
+  app-sync:
+    src: 'src/'
+    sync_strategy: ${SYNC_STRATEGY}
+    sync_host_port: 10871
+    sync_userid: 1000
+    sync_excludes: ['node_modules']

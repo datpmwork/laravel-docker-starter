@@ -1,0 +1,58 @@
+version: "2"
+
+services:
+  applications:
+    image: tianon/true
+    container_name: "${APP_NAME}_applications"
+    volumes:
+      - ./src:/var/www/
+  apache2:
+    container_name: "${APP_NAME}_apache2"
+    build:
+      context: ./docker/apache2
+    volumes_from:
+      - applications
+    volumes:
+      - ./logs/apache2:/var/log/apache2
+      - ./docker/apache2/sites:/etc/apache2/sites-available
+    ports:
+      - "8080:80"
+    networks:
+      - frontend
+      - backend
+  php-fpm:
+    container_name: "${APP_NAME}_web"
+    build:
+      context: ./docker/php-fpm
+    environment:
+      - DB_HOST=mysql
+      - DB_USERNAME=${MYSQL_USER}
+      - DB_DATABASE=${MYSQL_DATABASE}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+    volumes_from:
+      - applications
+    volumes:
+      - ./docker/php-fpm/php71.ini:/usr/local/etc/php/php.ini
+    expose:
+      - "9000"
+    networks:
+      - backend
+  mysql:
+    container_name: "${APP_NAME}_mysql"
+    build:
+      context: ./docker/mysql
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "${MYSQL_PORT_EXPOSE}:3306"
+    networks:
+      - backend
+
+networks:
+  frontend:
+    driver: "bridge"
+  backend:
+    driver: "bridge"
