@@ -14,3 +14,8 @@ In case of Makefile is not available, run this command instead
 `docker-compose -f docker-compose.yml up -d`
 
 After that, visit [http://localhost:3000](http://localhost:3000) to check if everything works fine.
+
+For the first time, need to install all PHP packages and Node Packages. Run the command below to run composer install and npm install
+
+`make install`
+
