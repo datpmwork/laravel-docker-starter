@@ -1,3 +1,6 @@
+include .env
+export $(shell sed 's/=.*//' .env)
+
 OS := $(shell uname)
 
 start:
@@ -5,6 +8,13 @@ start:
 
 stop:
 	docker-compose -f docker-compose.yml stop
+
+install:
+	docker exec $(APP_NAME)_workspace composer install
+	docker exec $(APP_NAME)_workspace npm install --no-optional
+
+watch:
+	docker exec $(APP_NAME)_workspace npm run watch
 
 startsync:
 ifeq ($(OS),Darwin)

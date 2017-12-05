@@ -16,7 +16,7 @@ services:
       - ./logs/apache2:/var/log/apache2
       - ./docker/apache2/sites:/etc/apache2/sites-available
     ports:
-      - "8080:80"
+      - "3000:80"
     networks:
       - frontend
       - backend
@@ -37,6 +37,8 @@ services:
       - "9000"
     networks:
       - backend
+    depends_on:
+      - workspace
   mysql:
     container_name: "${APP_NAME}_mysql"
     build:
@@ -50,12 +52,12 @@ services:
       - "${MYSQL_PORT_EXPOSE}:3306"
     networks:
       - backend
-  composer:
-    container_name: "${APP_NAME}_composer"
+  workspace:
+    container_name: "${APP_NAME}_workspace"
     build:
-      context: ./docker/composer
-    volumes:
-      - ./src:/app
+      context: ./docker/workspace
+    volumes_from:
+      - applications
 
 networks:
   frontend:

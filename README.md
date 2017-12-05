@@ -13,4 +13,4 @@ In case of Makefile is not available, run this command instead
 
 `docker-compose -f docker-compose.yml up -d`
 
-After that, visit [http://localhost:8080](http://localhost:8080) to check if everything works fine.
+After that, visit [http://localhost:3000](http://localhost:3000) to check if everything works fine.
