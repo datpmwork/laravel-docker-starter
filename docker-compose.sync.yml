@@ -2,7 +2,8 @@ version: "2"
 
 volumes:
   app-sync:
-    external: true
+    external:
+      name: "${APP_NAME}-sync"
 
 services:
   applications:

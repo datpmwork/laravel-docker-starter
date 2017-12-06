@@ -8,7 +8,7 @@ OS := $(shell uname)
 # Start Development
 start:
 ifeq ($(SYNC)$(OS),trueDarwin)
-	docker volume create --name=app-sync
+	docker volume create --name=$(APP_NAME)-sync
 	docker-compose -f docker-compose.yml -f docker-compose.sync.yml up -d
 	docker-sync start
 else
@@ -27,8 +27,8 @@ destroy:
 ifeq ($(SYNC)$(OS),trueDarwin)
 	docker-sync stop
 	docker-compose -f docker-compose.yml -f docker-compose.sync.yml down
-	docker rm app-sync
-	docker volume rm app-sync
+	docker rm $(APP_NAME)-sync
+	docker volume rm $(APP_NAME)-sync
 else
 	docker-compose -f docker-compose.sync.yml down
 endif

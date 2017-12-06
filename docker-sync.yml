@@ -2,7 +2,7 @@ version: "2"
 options:
   verbose: true
 syncs:
-  app-sync:
+  ${APP_NAME}-sync:
     src: 'src/'
     sync_strategy: ${SYNC_STRATEGY}
     sync_host_port: 10871
